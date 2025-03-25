@@ -3,6 +3,7 @@ package bumblebee945.com.github.gamecode;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 
 public class Main extends Application {
     static ArrayList<Die> die = new ArrayList<>();
-    static ArrayList<Face> inventory = new ArrayList<>();
+    //static ArrayList<Face> inventory = new ArrayList<>();
     static ArrayList<Bluff> bluff = new ArrayList<>();
     static Item selectedI;
     static boolean selected;
@@ -44,13 +45,6 @@ public class Main extends Application {
             bluff.add(new Bluff(i));
 
         Displayer.display("board");
-    }
-
-    static int rand(int min, int max) {
-        return (int)(Math.random() * (max - min + 1)) + min;
-    }
-    static int rand(int max) {
-        return rand(0, max);
     }
 
     static void play(int num) {
@@ -93,18 +87,17 @@ class Displayer {
                     pane.getChildren().addAll(b.getSquare(), b.getTitle(), b.getButton());
                 }
             }
-            case "inventory" -> {
-                pane.getChildren().add(inventory());
-            }
-            case "bluff" -> {
-               pane.getChildren().add(bluff());
-            }
+            case "inventory" -> pane.getChildren().add(inventory());
+            case "bluff" -> pane.getChildren().add(bluff());
             case "win" -> {
                 pane.getChildren().add(getPane(0, 0,
                         getRect(550, 550, 0, 0, 100, 200),
                         getText("You win!", 100, 150)
                 ));
-                pane.setOnMouseClicked(e -> System.exit(99));
+                pane.setOnMouseClicked(e -> {
+                    if (e.getButton().equals(MouseButton.PRIMARY))
+                        System.exit(99);
+                });
             }
         }
     }
@@ -153,7 +146,10 @@ class Displayer {
         Text invText = getText("Inventory", 20, 70);
         Pane pane = getPane(465, 510, invRect, invText);
 
-        pane.setOnMouseClicked(e -> display("inventory"));
+        pane.setOnMouseClicked(e -> {
+                if (e.getButton().equals(MouseButton.PRIMARY))
+                    display("inventory");
+            });
 
         return pane;
     }
@@ -183,7 +179,10 @@ class Displayer {
         Rectangle rect = getRect(120, 55, 3, 2, 0, 255);
         Text text = getText("Back", 40, 0);
         Pane backPane = getPane(20, 340, rect, text);
-        backPane.setOnMouseClicked(e -> display("board"));
+        backPane.setOnMouseClicked(e -> {
+            if (e.getButton().equals(MouseButton.PRIMARY))
+                display("board");
+        });
         pane.getChildren().add(backPane);
 
         rect = getRect(250, 55, 5, 2, 0, 240);
@@ -239,7 +238,8 @@ class Displayer {
         text.setFill(Color.valueOf("38721FFF"));
         Pane playPane = getPane(310, 254, rect, text);
         playPane.setOnMouseClicked(e -> {
-            Main.bluffO.roll();
+            if (e.getButton().equals(MouseButton.PRIMARY))
+                Main.bluffO.roll();
         });
         pane.getChildren().add(playPane);
 
@@ -284,7 +284,6 @@ class Bluff {
     String action;
 
     //constructors
-    Bluff() { System.exit(2); }
     Bluff(int num) {
         this.num = num;
         this.action = "turnStart";
@@ -309,7 +308,7 @@ class Bluff {
 
     //accessors
     String getAction() { return this.action; }
-    int getCountdown() { return this.countdown; }
+    //int getCountdown() { return this.countdown; }
     Pane getSquare() {
         Rectangle squareRect = Displayer.getRect(125, 125, 10, 3,
                 (num < Main.bluffN ? 50 : (num == Main.bluffN ? 70 : 30)), 0); // (? upcoming : (? current : beaten))
@@ -354,7 +353,10 @@ class Bluff {
 
         StackPane button = Displayer.getPane(255, 90 + (num*135), buttonRect, buttonText);
 
-        button.setOnMouseClicked(e -> Main.play(num));
+        button.setOnMouseClicked(e -> {
+            if (e.getButton().equals(MouseButton.PRIMARY))
+                Main.play(num);
+        });
 
         return button;
     }
@@ -371,7 +373,7 @@ class Bluff {
     }
 
     //mutators
-    void setAction(String action) { this.action = action; }
+    //void setAction(String action) { this.action = action; }
 }
 
 class Item {
@@ -407,7 +409,10 @@ class Item {
             faceText.setText(String.valueOf(value));
         pane = Displayer.getPane(lx, ly, faceRect, faceText);
 
-        pane.setOnMouseClicked(e -> select());
+        pane.setOnMouseClicked(e -> {
+            if (e.getButton().equals(MouseButton.PRIMARY))
+                select();
+        });
     }
     
     void select() {
@@ -447,14 +452,12 @@ class Item {
         copy(a, c);
         copy(b, a);
         copy(c, b);
-        c = null;
     }
     static void swap(Die a, Die b) {
-        Die c = new Die();
+        Die c = new Die(true);
         copy(a, c);
         copy(b, a);
         copy(c, b);
-        c = null;
     }
     static void copy(Die from, Die to) {
         to.name = from.name;
@@ -481,7 +484,8 @@ class Die extends Item {
     String name;
 
     Die(boolean isNull) {
-        name = "Null";
+        if (isNull)
+            name = "Null";
     }
     Die() {
         name = "Basic Die";
