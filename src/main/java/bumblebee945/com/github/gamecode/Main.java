@@ -432,7 +432,7 @@ class Item {
             ((Rectangle)Main.selectedI.pane.getChildren().getFirst()).setStroke(Color.rgb(0, 0, 0));
             System.out.println("main selected");
             if (Displayer.screen.equals("inventory"))
-                swap((Face)this, (Face)Main.selectedI, true);
+                swap((Face)this, (Face)Main.selectedI);
             else if (Displayer.screen.equals("bluff"))
                 swap((Die)this, (Die)Main.selectedI);
 
