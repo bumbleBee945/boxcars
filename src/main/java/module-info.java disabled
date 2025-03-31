@@ -1,0 +1,9 @@
+module bumblebee945.com.github.gamecode {
+    requires javafx.controls;
+    requires javafx.fxml;
+
+    requires org.controlsfx.controls;
+
+    opens bumblebee945.com.github.gamecode to javafx.fxml;
+    exports bumblebee945.com.github.gamecode;
+}

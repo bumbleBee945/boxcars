@@ -1,0 +1,72 @@
+--die
+	--type null
+		--value 0
+			--faces 99:pip:**
+			--stroke #000000
+			--name Null Die
+			--desc This should not exist. What?
+			--rarity common
+	--type basic
+		--value 0
+			--faces 1:pip:+1
+			--stroke #000000
+			--name Basic Bouncer
+			--desc No special effects
+			--rarity common
+		--value 1
+			--faces 3:pip:+3
+			--stroke #000000
+			--name Basic(3) Bouncer
+			--desc Triple pipped faces
+			--rarity uncommon
+		--value 2
+			--faces 6:pip:**
+			--stroke #000000
+			--name Oops! All 6s
+			--desc Six pipped faces
+			--rarity common
+		--value 3
+			--faces 3:money:+1
+			--stroke #006400
+			--name Money Tree
+			--desc Faces give money
+			--rarity uncommon
+	--type mult
+		--value 2
+			--faces 2:pip:**
+			--stroke #3c0000
+			--name Double Trouble Dip
+			--desc X2 times applied after scoring
+			--rarity uncommon
+		--value 3
+			--faces 3:pip:**
+			--stroke #780000
+			--name Triple Threat Trick
+			--desc X3 times applied after scoring
+			--rarity uncommon
+		--value 4
+			--faces 4:pip:**
+			--stroke #b40000
+			--name Quadification Station
+			--desc X4 times applied after scoring!
+			--rarity rare
+	--type money
+		--value 2
+			--faces 1:pip:+1
+			--stroke #014006
+			--name Green Goblin
+			--desc Earn $2 when scored
+			--rarity uncommon
+	--type special
+		--value 0
+			--faces 1:pip:**
+			--stroke #3c3b00
+			--name Cheater Cube
+			--desc Copies effects and score of die to the right when scored
+			--rarity rare
+		--value 1
+			--faces 1:pip:**
+			--stroke #59004a
+			--name Silly Spinner
+			--desc Rolls and scores die to the left again when scored
+			--rarity rare

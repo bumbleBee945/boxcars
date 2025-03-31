@@ -1,0 +1,25 @@
+--face
+	--type null
+		--desc This should not exist. What?
+		--value 0
+			--name Null Face
+			--fill #d9babb
+			--rarity common
+	--type pip
+		--desc Adds face value to pips
+		--value -1
+			--name Pip-pop
+			--fill #ffffff
+			--rarity common
+	--type mult
+		--desc Multiples times by face value
+		--value -1
+			--name Multitimes
+			--fill #ffd2d2
+			--rarity uncommon
+	--type money
+		--desc Adds face value to money
+		--value -1
+			--name Money Leaf
+			--fill #d2ffd2
+			--rarity common
